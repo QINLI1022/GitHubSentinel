@@ -20,11 +20,13 @@ class LLM:
             return "DRY RUN"
 
         LOG.info("Starting report generation using GPT model.")
-        
+
         try:
             response = self.client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
+                    {"role": "system",
+                     "content": "你是一个报告撰写专家，擅长根据提供的内容撰写各种简报，请根据用户的要求，分析用户提供的内容，输出报告。\n注意：所有回答请务必使用中文进行返回。"},
                     {"role": "user", "content": prompt}
                 ]
             )
